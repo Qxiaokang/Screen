@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <declare-styleable name="ClockView">
+        <attr name="HWide" format="dimension"/>
+        <attr name="MWide" format="dimension"/>
+        <attr name="SWide" format="dimension"/>
+        <attr name="mTextColor" format="color"/>
+        <attr name="mRadius" format="dimension"/>
+        <attr name="mTextSize" format="dimension"/>
+        <attr name="sScale" format="color"/>
+        <attr name="mScale" format="color"/>
+        <attr name="bScale" format="color"/>
+        <attr name="mCircleColor" format="color"/>
+    </declare-styleable>
+
+    
+    <declare-styleable name="TrigonView">
+        <attr name="mWidth" format="dimension"/>
+    </declare-styleable>
+</resources>

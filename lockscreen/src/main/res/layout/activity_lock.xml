@@ -1,11 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.lockscreen.LockActivity">
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".activity.LockActivity"
+    android:background="@mipmap/timg3"
+    >
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/ani_lock"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:layout_centerInParent="true"
+        android:scaleType="fitCenter"
+        app:lottie_loop="true"
+        />
+    <com.example.lockscreen.ui.ClockView
+        android:id="@+id/clock_id"
+        android:layout_width="500dp"
+        android:layout_height="500dp"
+        android:layout_centerVertical="true"
+        app:mRadius="200dp"
+        android:layout_centerInParent="true"
+        app:mCircleColor="@color/colorAccent"
+        android:alpha="0.7"
+        />
 </RelativeLayout>

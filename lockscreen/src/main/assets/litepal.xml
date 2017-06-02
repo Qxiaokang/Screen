@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<litepal>
+    <!-- <dbname>用于设定数据库的名字 -->
+    <dbname value="litepal_test.db" />
+    <!-- <version>用于设定数据库的版本号，如果你想要升级数据库，增加这个值 -->
+    <version value="1" />
+    <!-- <list>用于设定所有的映射模型 -->
+    <list>
+        <mapping class="com.example.aozun.testapplication.bean.Books"></mapping>
+    </list>
+</litepal>
