@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.lockscreen.activity.LockActivity;
+import com.example.lockscreen.ui.MainApplication;
 import com.example.lockscreen.utils.LogUtils;
 
 /**
@@ -16,8 +17,9 @@ public class ScreenOffReceiver extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent){
         String action=intent.getAction();
         //变暗就启动锁屏页面
-        LogUtils.i("---screenOff---action:"+action);
         if(action.equals("android.intent.action.SCREEN_OFF")){
+            LogUtils.i("---screenOff---action:"+action);
+            MainApplication.getInstance().finishAllActivity();
             Intent it=new Intent(context, LockActivity.class);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(it);

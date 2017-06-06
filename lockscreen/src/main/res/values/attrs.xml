@@ -18,4 +18,15 @@
     <declare-styleable name="TrigonView">
         <attr name="mWidth" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="gridPasswordView">
+        <attr name="gpvTextColor" format="color"/>
+        <attr name="gpvTextSize" format="dimension"/>
+        <attr name="gpvLineWidth" format="dimension"/>
+        <attr name="gpvLineColor" format="color"/>
+        <attr name="gpvGridColor" format="color"/>
+        <attr name="gpvPasswordLength" format="integer"/>
+        <attr name="gpvPasswordTransformation" format="string"/>
+        <attr name="gpvPasswordType" format="integer"/>
+    </declare-styleable>
 </resources>

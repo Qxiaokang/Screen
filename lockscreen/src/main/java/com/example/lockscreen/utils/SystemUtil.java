@@ -21,14 +21,16 @@ public class SystemUtil{
     private  boolean isLock=false;
     public static  String shareDB="lockdb";
     public   static SharedPreferences sp;
-    private String pwdString="201706";
+    private String pwdString="87654321";
     private Toast toast;
     public String getPwdString(){
-        return pwdString;
+        String pwd=sp.getString("pwd","");
+        return "".equals(pwd)?pwdString:pwd;
     }
 
     public void setPwdString(String pwdString){
         this.pwdString = pwdString;
+        sp.edit().putString("pwd",pwdString);
     }
 
     public  boolean isLock(){
@@ -91,12 +93,19 @@ public class SystemUtil{
         IntentFilter intentFilter=new IntentFilter(action);
         context.registerReceiver(broadcastReceiver,intentFilter);
     }
-    //关闭系统锁屏
+    //关闭
     public void closeLock(){
         KeyguardManager mKeyguardManager = (KeyguardManager)context.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
         KeyguardManager.KeyguardLock mKeyguardLock = mKeyguardManager.newKeyguardLock("unLock");
         mKeyguardLock.disableKeyguard();
         LogUtils.d("关闭系统锁屏。。");
+    }
+    //恢复
+    public void resetLock(){
+        KeyguardManager mKeyguardManager = (KeyguardManager)context.getApplicationContext().getSystemService(Context.KEYGUARD_SERVICE);
+        KeyguardManager.KeyguardLock mKeyguardLock = mKeyguardManager.newKeyguardLock("unLock");
+        mKeyguardLock.reenableKeyguard();
+        LogUtils.d("恢复系统锁屏。。");
     }
 
     //

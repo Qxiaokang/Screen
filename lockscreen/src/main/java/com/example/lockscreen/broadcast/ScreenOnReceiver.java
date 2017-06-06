@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.example.lockscreen.utils.LogUtils;
-import com.example.lockscreen.utils.SystemUtil;
 
 /**
  * Created by Admin on 2017/5/8.
@@ -24,7 +23,7 @@ public class ScreenOnReceiver extends BroadcastReceiver{
                  * 两句可以代替此方式
                  */
             LogUtils.i("android.intent.action.SCREEN_ON");
-            SystemUtil.getInstance(context).closeLock();
+            //SystemUtil.getInstance(context).closeLock();
         }
     }
 }

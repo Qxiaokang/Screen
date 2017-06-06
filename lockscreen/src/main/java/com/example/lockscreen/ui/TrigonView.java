@@ -41,16 +41,20 @@ public class TrigonView extends View{
     protected void onDraw(Canvas canvas){
         super.onDraw(canvas);
         if(moveX!=0&&moveY!=0){
-            drawTrigon(canvas);
+//            drawTrigon(canvas);
+            drawCircle(canvas);
         }
         if(IS_UP==1){
-            canvas.restore();
+            //canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);//清空
+            mPaint.setColor(Color.rgb(60, 63, 65));
+            canvas.drawPaint(mPaint);
         }
-        drawCircle(canvas);
     }
 
     private void drawCircle(Canvas canvas){
-
+        mPaint.setColor(Color.GREEN);
+        mPaint.setStyle(Paint.Style.FILL);
+        canvas.drawCircle(moveX,moveY,mWidth/2,mPaint);
     }
 
     //

@@ -10,19 +10,19 @@
         android:layout_margin="10dp"
         >
         <TableRow android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="原密码"/>
-            <EditText android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/yuan_et" android:background="@drawable/edt_selector" android:hint="请输入原密码"/>
+            android:layout_height="wrap_content" >
+            <TextView android:layout_margin="5dp" android:textSize="@dimen/text_size18" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="原密码"/>
+            <EditText android:inputType="textPassword" android:padding="5dp" android:textSize="@dimen/text_size18" android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/yuan_et" android:background="@drawable/edt_selector" android:hint="请输入原密码"/>
         </TableRow>
         <TableRow android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView  android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="新密码"/>
-            <EditText android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/new_et1" android:background="@drawable/edt_selector" android:hint="请输入新密码"/>
+            <TextView  android:layout_margin="5dp" android:textSize="@dimen/text_size18" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="新密码"/>
+            <EditText android:inputType="textPassword" android:padding="5dp" android:textSize="@dimen/text_size18" android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/new_et1" android:background="@drawable/edt_selector" android:hint="请输入新密码"/>
         </TableRow>
         <TableRow android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
-            <TextView  android:layout_margin="5dp" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="新密码"/>
-            <EditText android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/new_et2" android:background="@drawable/edt_selector" android:hint="请再次输入新密码"/>
+            <TextView  android:layout_margin="5dp" android:textSize="@dimen/text_size18" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="新密码"/>
+            <EditText android:inputType="textPassword" android:padding="5dp" android:textSize="@dimen/text_size18" android:textColor="@color/colorAccent" android:layout_margin="5dp" android:id="@+id/new_et2" android:background="@drawable/edt_selector" android:hint="请再次输入新密码"/>
         </TableRow>
     </TableLayout>
     <TextView
@@ -51,8 +51,9 @@
             android:layout_weight="1"
             android:text="确 认"
             android:padding="10dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/tv_color1"
             android:background="@drawable/bt_bg_selct1"
+            android:textSize="@dimen/text_size20"
             />
         <TextView
             android:layout_width="0dp"
@@ -66,8 +67,9 @@
             android:layout_weight="1"
             android:text="取 消"
             android:padding="10dp"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/tv_color1"
             android:background="@drawable/bt_bg_selct1"
+            android:textSize="@dimen/text_size20"
             />
         <TextView
             android:layout_width="0dp"

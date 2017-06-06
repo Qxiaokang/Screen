@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LS</string>
+    <string name="hint_message1">请 输 入 密 码</string>
 </resources>

@@ -28,7 +28,6 @@ public class LockService extends Service{
     @Override
     public void onCreate(){
         LogUtils.d("---service创建");
-        super.onCreate();
         screenOffReceiver=new ScreenOffReceiver();
         screenOnReceiver=new ScreenOnReceiver();
         homeReceiver=new HomeReceiver();
@@ -36,6 +35,7 @@ public class LockService extends Service{
         SystemUtil.getInstance(getApplicationContext()).registerReceiver("android.intent.action.SCREEN_OFF",screenOffReceiver);
         SystemUtil.getInstance(getApplicationContext()).registerReceiver("android.intent.action.SCREEN_ON",screenOnReceiver);
         SystemUtil.sp.edit().putInt("si",1);
+        super.onCreate();
     }
 
     @Override
@@ -47,11 +47,11 @@ public class LockService extends Service{
     @Override
     public void onDestroy(){
         LogUtils.d("---service销毁");
-        super.onDestroy();
         unregisterReceiver(screenOffReceiver);
         unregisterReceiver(screenOnReceiver);
         unregisterReceiver(homeReceiver);
         Intent intent=new Intent(getApplicationContext(),LockService.class);
         startService(intent);
+        super.onDestroy();
     }
 }

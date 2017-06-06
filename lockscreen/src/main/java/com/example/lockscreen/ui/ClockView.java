@@ -113,7 +113,7 @@ public class ClockView extends View{
         //中心圆
         mPanit.setStyle(Paint.Style.FILL);
         mPanit.setColor(sScale);
-        canvas.drawCircle(mWidth/2,mHight/2,HWide/2+5,mPanit);
+        canvas.drawCircle(mWidth/2,mHight/2,HWide/2+8,mPanit);
         handler.sendEmptyMessageDelayed(TIME_START,1000);
     }
 

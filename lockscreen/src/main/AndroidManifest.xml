@@ -23,16 +23,24 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <!-- 锁屏的服务 -->
-        <service android:name=".service.LockService" />
+        <service android:name=".service.LockService"
+            />
         <!-- 锁屏的广播 -->
         <!--透明的Activity-->
         <activity android:name=".activity.LucencyActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             />
+        <receiver android:name=".broadcast.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

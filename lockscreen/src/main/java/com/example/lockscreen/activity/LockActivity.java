@@ -9,8 +9,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -25,7 +23,7 @@ import com.example.lockscreen.utils.SystemUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockActivity extends AppCompatActivity implements View.OnClickListener{
+public class LockActivity extends AppCompatActivity{
     private SystemUtil systemUtil;
     private TextView tv;
     public static  final  int SELF_FLAG=0;
@@ -34,12 +32,10 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
     private LottieAnimationView animationView;
     @Override
     protected void onCreate(Bundle savedInstanceState){
-
         LogUtils.d("---LockActivity创建");
         super.onCreate(savedInstanceState);
-        MainApplication.getInstance().finishAllActivity();
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
         getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.activity_lock);
         MainApplication.getInstance().addActivity(this);
@@ -49,9 +45,11 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
     private void init(){
         int si=systemUtil.sp.getInt("si",0);
         if(si==0){
+            LogUtils.i("---si==0");
             Intent intent=new Intent(this, LockService.class);
-            startService(intent);        }
-
+            startService(intent);
+        }
+        SystemUtil.getInstance(getApplicationContext()).closeLock();
         animationView= (LottieAnimationView) findViewById(R.id.ani_lock);
         animationView.setImageAssetsFolder("Images");
         playByNme(this,"TwitterHeart.json",animationView);
@@ -59,11 +57,19 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
-        if(keyCode==event.KEYCODE_HOME){
+        if(keyCode==KeyEvent.KEYCODE_HOME){
             LogUtils.i("keyCode==event.KEYCODE_HOME");
             return true;
         }
-        return false;
+        else if(keyCode==KeyEvent.KEYCODE_BACK){
+            LogUtils.i("keyCode==event.KEYCODE_BACK");
+            return true;
+        }else if(keyCode==KeyEvent.KEYCODE_MENU){
+            LogUtils.i("keyCode==event.KEYCODE_MENU");
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override
@@ -79,6 +85,7 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
             animationView.cancelAnimation();
         }
         systemUtil.setIsLock(false);
+        SystemUtil.getInstance(getApplicationContext()).resetLock();
         super.onDestroy();
     }
 
@@ -87,11 +94,6 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
         LogUtils.d("---LockActivity---Resume");
         systemUtil.setIsLock(true);
         super.onResume();
-    }
-
-    @Override
-    public void onClick(View view){
-        finish();
     }
     public void startActivity(){
         List<String> pkgName=new ArrayList<>();
