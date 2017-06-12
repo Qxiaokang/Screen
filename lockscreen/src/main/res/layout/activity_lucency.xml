@@ -36,12 +36,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="修改密码"
+        android:padding="@dimen/margin_10"
         android:textColor="@color/colorAccent"
         android:textColorLink="@color/colorAccent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
+        android:textSize="@dimen/text_size18"
+        android:autoLink="all"
+        />
+    <TextView
+        android:id="@+id/text_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="取  消"
+        android:padding="@dimen/margin_10"
+        android:textColor="@color/colorAccent"
+        android:textColorLink="@color/colorAccent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="20dp"
         android:textSize="@dimen/text_size18"
         />
     <Button

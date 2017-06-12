@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.example.lockscreen.R;
+import com.example.lockscreen.service.BindService;
 import com.example.lockscreen.service.LockService;
 import com.example.lockscreen.ui.MainApplication;
 import com.example.lockscreen.utils.LogUtils;
@@ -30,12 +32,13 @@ public class LockActivity extends AppCompatActivity{
     public static final  int OTHER_FLAG=1;
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
     private LottieAnimationView animationView;
+    private int isFouseInt=0;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         LogUtils.d("---LockActivity创建");
         super.onCreate(savedInstanceState);
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
         getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.activity_lock);
         MainApplication.getInstance().addActivity(this);
@@ -43,13 +46,13 @@ public class LockActivity extends AppCompatActivity{
         init();
     }
     private void init(){
-        int si=systemUtil.sp.getInt("si",0);
+        int si=systemUtil.getSp().getInt("isfirst",0);
         if(si==0){
             LogUtils.i("---si==0");
             Intent intent=new Intent(this, LockService.class);
             startService(intent);
+            startService(new Intent(this, BindService.class));
         }
-        SystemUtil.getInstance(getApplicationContext()).closeLock();
         animationView= (LottieAnimationView) findViewById(R.id.ani_lock);
         animationView.setImageAssetsFolder("Images");
         playByNme(this,"TwitterHeart.json",animationView);
@@ -57,6 +60,7 @@ public class LockActivity extends AppCompatActivity{
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        LogUtils.d("keCode:"+keyCode);
         if(keyCode==KeyEvent.KEYCODE_HOME){
             LogUtils.i("keyCode==event.KEYCODE_HOME");
             return true;
@@ -75,17 +79,23 @@ public class LockActivity extends AppCompatActivity{
     @Override
     protected void onStop(){
         LogUtils.d("---LockActivity---stop");
+        isFouseInt=1;
         super.onStop();
     }
 
     @Override
     protected void onDestroy(){
         LogUtils.d("---LockActivity---destroy");
+        if(isFouseInt!=1){
+            LogUtils.e("---ifFouseInt:"+isFouseInt);
+            Intent intent=new Intent(this, LockService.class);
+            startService(intent);
+            startService(new Intent(this, BindService.class));
+        }
         if(animationView!=null){
             animationView.cancelAnimation();
         }
         systemUtil.setIsLock(false);
-        SystemUtil.getInstance(getApplicationContext()).resetLock();
         super.onDestroy();
     }
 
@@ -146,6 +156,18 @@ public class LockActivity extends AppCompatActivity{
             return true;
         }
         return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent){
+        LogUtils.e("---Lockactivity---onNemIntent");
+        super.onNewIntent(intent);
+    }
+
+    @Override
+    protected void onRestart(){
+        LogUtils.e("---LockActivity---onRestart---");
+        super.onRestart();
     }
 }
 

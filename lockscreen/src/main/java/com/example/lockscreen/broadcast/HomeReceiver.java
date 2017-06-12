@@ -27,11 +27,6 @@ public class HomeReceiver extends BroadcastReceiver{
             if (SYSTEM_DIALOG_REASON_HOME_KEY.equals(reason)) {
                 // 短按Home键
                 LogUtils.i(LOG_TAG+"   homekey"+  "   islock:"+SystemUtil.getInstance(context).isLock());
-//                if(SystemUtil.getInstance(context).isLock()){
-//                    Intent in=new Intent(context, LockActivity.class);
-//                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    context.startActivity(in);
-//                }
             }
             else if (SYSTEM_DIALOG_REASON_RECENT_APPS.equals(reason)) {
                 // 长按Home键 或者 activity切换键

@@ -20,8 +20,14 @@ public class SystemUtil{
     private static SystemUtil systemUtil;
     private  boolean isLock=false;
     public static  String shareDB="lockdb";
-    public   static SharedPreferences sp;
-    private String pwdString="87654321";
+    private  SharedPreferences sp;
+
+    public   SharedPreferences getSp(){
+        sp=context.getSharedPreferences(shareDB,Context.MODE_PRIVATE);
+        return sp;
+    }
+
+    private String pwdString="qwertyui";
     private Toast toast;
     public String getPwdString(){
         String pwd=sp.getString("pwd","");
@@ -48,7 +54,6 @@ public class SystemUtil{
     public static synchronized SystemUtil getInstance(Context context){
         if(systemUtil==null){
             systemUtil=new SystemUtil(context);
-            sp=context.getSharedPreferences(shareDB,Context.MODE_PRIVATE);
         }
         return systemUtil;
     }

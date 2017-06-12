@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.InputFilter;
 import android.text.method.DigitsKeyListener;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +33,7 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
     private Intent intent = null;
     private GridPasswordView gridPasswordView;
     private String pwdString;
-    private TextView setView;
+    private TextView setView,tv_cancle;
     private Button enterbt;
     private EditText etpwd, newpwd1, newpwd2;
     private Dialog pwdDialog;
@@ -44,6 +46,8 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
         getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
         setContentView(R.layout.activity_lucency);
         MainApplication.getInstance().addActivity(this);
@@ -55,6 +59,8 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
         gridPasswordView.setOnPasswordChangedListener(this);
         gridPasswordView.setPasswordType(PasswordType.TEXT);
         setView = (TextView) findViewById(R.id.text_set);
+        tv_cancle= (TextView) findViewById(R.id.text_cancle);
+        tv_cancle.setOnClickListener(this);
         setView.setOnClickListener(this);
         enterbt = (Button) findViewById(R.id.enter_id);
         enterbt.setOnClickListener(this);
@@ -150,6 +156,10 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
                 }
 //                ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
                 break;
+
+            case R.id.text_cancle:
+                finish();
+                break;
             default:
                 break;
         }
@@ -167,6 +177,7 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        LogUtils.e("keyCode:"+keyCode);
         if(keyCode==KeyEvent.KEYCODE_HOME){
             LogUtils.i("keyCode==event.KEYCODE_HOME");
             return true;
@@ -177,7 +188,8 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
         }else if(keyCode==KeyEvent.KEYCODE_MENU){
             LogUtils.i("keyCode==event.KEYCODE_MENU");
             return true;
-        }else {
+        }
+        else {
             return false;
         }
     }
@@ -192,6 +204,12 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
     protected void onStop(){
         LogUtils.i("---lucencyActivity-stop---");
         super.onStop();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        LogUtils.i("---LucencyActivity---onTouchEvent---");
+        return true;
     }
 }
 

@@ -8,39 +8,61 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.DEVICE_POWER"/>
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:persistent="true"
         android:theme="@style/AppTheme"
         >
         <activity android:name="com.example.lockscreen.activity.LockActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"
+            android:launchMode="singleTask"
             >
+           <!-- android:excludeFromRecents="true"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <!-- 锁屏的服务 -->
-        <service android:name=".service.LockService"
-            />
-        <!-- 锁屏的广播 -->
+        <service android:name=".service.LockService" android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name=".service.LockService.action"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+        </service>
         <!--透明的Activity-->
         <activity android:name=".activity.LucencyActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
             />
         <receiver android:name=".broadcast.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.PACKAGE_RESTARTED"/>
                 <category android:name="android.intent.category.HOME"/>
             </intent-filter>
         </receiver>
+        <service android:name=".service.BindService"
+            android:exported="true"
+            android:process=":remote"/>
+        <!--android:permission="android.permission.BIND_DEVICE_ADMIN"-->
+        <!--<receiver android:name=".broadcast.MydeviceReceiver"
+            >
+            <meta-data android:name="android.app.device_admin"
+                android:resource="@xml/device_admin"/>
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+            </intent-filter>
+        </receiver>-->
     </application>
 </manifest>

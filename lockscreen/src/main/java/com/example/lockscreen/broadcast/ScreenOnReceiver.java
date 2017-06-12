@@ -23,7 +23,6 @@ public class ScreenOnReceiver extends BroadcastReceiver{
                  * 两句可以代替此方式
                  */
             LogUtils.i("android.intent.action.SCREEN_ON");
-            //SystemUtil.getInstance(context).closeLock();
         }
     }
 }
