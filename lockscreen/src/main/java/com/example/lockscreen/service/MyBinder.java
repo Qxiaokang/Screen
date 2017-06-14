@@ -1,6 +1,5 @@
 package com.example.lockscreen.service;
 
-import android.app.Service;
 import android.os.RemoteException;
 
 import com.example.lockscreen.IMyAidlInterface;
@@ -10,24 +9,6 @@ import com.example.lockscreen.IMyAidlInterface;
  */
 public class MyBinder extends IMyAidlInterface.Stub{
     private int flag;
-    private Service service=null;
-    private Service bindService=null;
-
-    public Service getBindService(){
-        return bindService;
-    }
-
-    public void setBindService(Service bindService){
-        this.bindService = bindService;
-    }
-
-    public Service getService(){
-        return service;
-    }
-
-    public void setService(Service service){
-        this.service = service;
-    }
 
     public MyBinder(int flag){
         this.flag=flag;

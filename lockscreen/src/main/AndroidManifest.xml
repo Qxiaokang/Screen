@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:persistent="true"
         android:theme="@style/AppTheme"
+        android:name=".activity.HomeApplicaiton"
         >
         <activity android:name="com.example.lockscreen.activity.LockActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
@@ -33,7 +34,7 @@
         <!-- 锁屏的服务 -->
         <service android:name=".service.LockService" android:exported="true">
             <intent-filter android:priority="1000">
-                <action android:name=".service.LockService.action"/>
+                <action android:name="service.LockService.action"/>
                 <category android:name="android.intent.category.HOME"/>
             </intent-filter>
         </service>
@@ -64,5 +65,10 @@
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
             </intent-filter>
         </receiver>-->
+        <receiver android:name=".broadcast.ForceStopReceiver">
+            <intent-filter>
+                <action android:name="android.forcestop.action"/>
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

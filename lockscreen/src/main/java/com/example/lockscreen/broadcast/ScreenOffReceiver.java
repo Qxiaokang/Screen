@@ -19,6 +19,7 @@ public class ScreenOffReceiver extends BroadcastReceiver{
         if(action.equals("android.intent.action.SCREEN_OFF")){
             LogUtils.i("---screenOff---action:"+action);
             Intent it=new Intent(context, LockActivity.class);
+            it.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
             it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(it);
         }

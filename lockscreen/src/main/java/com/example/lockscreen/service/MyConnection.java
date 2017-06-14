@@ -12,13 +12,20 @@ import com.example.lockscreen.utils.LogUtils;
  * Created by Admin on 2017/6/12.
  */
 public class MyConnection implements ServiceConnection{
-    private Context context;
+    private Context context1=null;
+    private Context context2=null;
     private int flag;
     private MyBinder myBinder;
     public MyConnection(Context context, int flag,MyBinder myBinder){
-        this.context = context;
         this.flag = flag;
         this.myBinder=myBinder;
+        LogUtils.i("---flag:"+flag);
+        if(flag==LockService.LOCK_FLAG){
+            this.context1=context;
+        }
+        if(flag==BindService.BIND_FAG){
+            this.context2=context;
+        }
     }
 
     @Override
@@ -31,14 +38,12 @@ public class MyConnection implements ServiceConnection{
         LogUtils.e("---service---conncect---faild---flagInt:"+flag);
         switch(flag){
             case BindService.BIND_FAG:
-                myBinder.getService().startService(new Intent(myBinder.getService(),BindService.class));
-                myBinder.getService().bindService(new Intent(myBinder.getService(),BindService.class),MyConnection.this,Context.BIND_AUTO_CREATE);
                 break;
             case LockService.LOCK_FLAG:
-                LogUtils.d("---context:"+context+"   mybinder:"+myBinder);
-                ComponentName name=myBinder.getBindService().startService(new Intent(myBinder.getBindService(),com.example.lockscreen.service.LockService.class));
+                LogUtils.d("---context1:"+context1+"  context2:"+context2+"   mybinder:"+myBinder);
+                ComponentName name=context2.startService(new Intent(context2,LockService.class));
                 LogUtils.d("---componentName:"+name.getClassName());
-                myBinder.getBindService().bindService(new Intent(myBinder.getBindService(),com.example.lockscreen.service.LockService.class),this,Context.BIND_AUTO_CREATE);
+                context2.bindService(new Intent(context2,LockService.class),this,Context.BIND_AUTO_CREATE);
                 break;
             default:
                 break;
