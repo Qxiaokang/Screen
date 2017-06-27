@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.lockscreen.R;
+import com.example.lockscreen.service.LockService;
 import com.example.lockscreen.ui.MainApplication;
 import com.example.lockscreen.utils.LogUtils;
 import com.example.lockscreen.utils.SystemUtil;
@@ -172,6 +173,8 @@ public class LucencyActivity extends Activity implements GridPasswordView.OnPass
             pwdDialog.cancel();
             pwdDialog = null;
         }
+        Intent intent=new Intent(LucencyActivity.this, LockService.class);
+        startService(intent);
         super.onDestroy();
 }
 

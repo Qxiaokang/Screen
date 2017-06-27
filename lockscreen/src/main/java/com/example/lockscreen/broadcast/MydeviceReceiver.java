@@ -1,7 +1,6 @@
 package com.example.lockscreen.broadcast;
 
 import android.app.admin.DeviceAdminReceiver;
-import android.app.admin.DevicePolicyManager;
 import android.content.Context;
 import android.content.Intent;
 
@@ -20,7 +19,7 @@ public class MydeviceReceiver extends DeviceAdminReceiver{
         return "";*/
         LogUtils.d("---deviceReceiver---"+intent.getAction());
         //跳离当前询问是否取消激活的 dialog
-        Intent outOfDialog = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
+       /* Intent outOfDialog = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
         outOfDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(outOfDialog);
 
@@ -43,10 +42,11 @@ public class MydeviceReceiver extends DeviceAdminReceiver{
                     }
                 }
             }
-        }).start();
+        }).start();*/
 
         return "";
     }
+
 
     @Override
     public void onEnabled(Context context, Intent intent){

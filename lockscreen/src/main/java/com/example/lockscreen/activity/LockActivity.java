@@ -1,5 +1,6 @@
 package com.example.lockscreen.activity;
 
+import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -16,6 +17,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.OnCompositionLoadedListener;
 import com.example.lockscreen.R;
+import com.example.lockscreen.broadcast.MydeviceReceiver;
 import com.example.lockscreen.service.BindService;
 import com.example.lockscreen.service.LockService;
 import com.example.lockscreen.ui.MainApplication;
@@ -37,6 +39,7 @@ public class LockActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         LogUtils.d("---LockActivity创建");
         super.onCreate(savedInstanceState);
+        activation();
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);//锁屏时显示
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//去除系统锁屏界面窗口
         getWindow().setFlags(FLAG_HOMEKEY_DISPATCHED,FLAG_HOMEKEY_DISPATCHED);
@@ -168,6 +171,15 @@ public class LockActivity extends AppCompatActivity{
     protected void onRestart(){
         LogUtils.e("---LockActivity---onRestart---");
         super.onRestart();
+    }
+    // 激活设备超级管理员
+    public void activation() {
+        Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+        // 初始化要激活的组件
+        ComponentName mDeviceAdminSample = new ComponentName(LockActivity.this, MydeviceReceiver.class);
+        intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mDeviceAdminSample);
+        intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Activate");
+        startActivity(intent);
     }
 }
 
