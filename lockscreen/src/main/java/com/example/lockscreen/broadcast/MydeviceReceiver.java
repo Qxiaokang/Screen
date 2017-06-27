@@ -10,16 +10,16 @@ import com.example.lockscreen.utils.LogUtils;
  * Created by Admin on 2017/6/7.
  */
 public class MydeviceReceiver extends DeviceAdminReceiver{
-    @Override
+    /*@Override
     public CharSequence onDisableRequested(Context context, Intent intent){
-       /* Intent intent1=new Intent(context, LockActivity.class);
+       *//* Intent intent1=new Intent(context, LockActivity.class);
         intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent1);
         context.stopService(intent);
-        return "";*/
+        return "";*//*
         LogUtils.d("---deviceReceiver---"+intent.getAction());
         //跳离当前询问是否取消激活的 dialog
-       /* Intent outOfDialog = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
+       *//* Intent outOfDialog = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
         outOfDialog.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(outOfDialog);
 
@@ -42,12 +42,15 @@ public class MydeviceReceiver extends DeviceAdminReceiver{
                     }
                 }
             }
-        }).start();*/
+        }).start();*//*
 
         return "";
+    }*/
+
+    @Override
+    public CharSequence onDisableRequested(Context context, Intent intent){
+        return super.onDisableRequested(context, intent);
     }
-
-
     @Override
     public void onEnabled(Context context, Intent intent){
         super.onEnabled(context, intent);
