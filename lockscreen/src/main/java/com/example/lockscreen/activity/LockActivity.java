@@ -6,11 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
@@ -35,6 +40,7 @@ public class LockActivity extends AppCompatActivity{
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
     private LottieAnimationView animationView;
     private int isFouseInt=0;
+    private AppCompatImageView appCompatImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         LogUtils.d("---LockActivity创建");
@@ -49,6 +55,8 @@ public class LockActivity extends AppCompatActivity{
         init();
     }
     private void init(){
+        appCompatImageView= (AppCompatImageView) findViewById(R.id.iv_grass);
+        startVectorAnim(appCompatImageView);
         int si=systemUtil.getSp().getInt("isfirst",0);
         if(si==0){
             LogUtils.i("---si==0");
@@ -180,6 +188,15 @@ public class LockActivity extends AppCompatActivity{
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mDeviceAdminSample);
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Activate");
         startActivity(intent);
+    }
+
+    private void startVectorAnim(AppCompatImageView aiv){
+        aiv.setVisibility(View.VISIBLE);
+        ImageView imageView=(ImageView) aiv;
+        Drawable drawable=imageView.getDrawable();
+        if(drawable instanceof Animatable){
+            ((Animatable) drawable).start();
+        }
     }
 }
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/grass_vector"
+    >
+    <target
+        android:animation="@animator/anim_path"
+        android:name="grass1"/>
+    <target
+        android:animation="@animator/anim_path"
+        android:name="grass2"/>
+    <target
+        android:animation="@animator/anim_path"
+        android:name="grass3"/>
+</animated-vector>

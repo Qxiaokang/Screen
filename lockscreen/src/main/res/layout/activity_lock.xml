@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".activity.LockActivity"
-    android:background="@mipmap/timg3"
+    android:background="@color/colorBlack"
     >
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/ani_lock"
         android:layout_width="400dp"
@@ -25,5 +24,18 @@
         android:layout_centerInParent="true"
         app:mCircleColor="@color/colorAccent"
         android:alpha="0.7"
+        app:mTextColor="@color/colorAccent"
+        app:mTextSize="15dp"
+        />
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_grass"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:layout_marginTop="5dp"
+        app:srcCompat="@drawable/start_grass_animated"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:scaleType="fitCenter"
+        android:visibility="invisible"
         />
 </RelativeLayout>

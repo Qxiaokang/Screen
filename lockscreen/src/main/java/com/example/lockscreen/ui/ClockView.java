@@ -57,6 +57,7 @@ public class ClockView extends View{
         s_length= mRadius+widelength/44;
         mPanit=new Paint();
         mPanit.setAntiAlias(true);
+        mPanit.setDither(true);
         LogUtils.i("mradius:"+mRadius);
         mTextPaint=new Paint();
         mTextPaint.setAntiAlias(true);
@@ -163,7 +164,7 @@ public class ClockView extends View{
     private void drawCircle(Canvas canvas){
         mPanit.setStyle(Paint.Style.STROKE);
         mPanit.setColor(mCircleColor);
-        mPanit.setStrokeWidth(5);
+        mPanit.setStrokeWidth(8);
         canvas.drawCircle(mWidth/2,mHight/2,mRadius,mPanit);
 
     }
