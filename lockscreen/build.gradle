@@ -9,6 +9,7 @@ android {
         applicationId "com.example.lockscreen"
         minSdkVersion 14
         targetSdkVersion 25
+        vectorDrawables.useSupportLibrary true
         versionCode 1
         versionName "1.0.1"
     }
@@ -33,6 +34,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile project(':lottie')
     compile 'com.jungly:gridPasswordView:0.3'
+    compile 'com.android.support:support-v4:25.3.1'
 }
 repositories {
     mavenCentral()
