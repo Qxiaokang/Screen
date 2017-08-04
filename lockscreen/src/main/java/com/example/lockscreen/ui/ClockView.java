@@ -166,7 +166,6 @@ public class ClockView extends View{
         mPanit.setColor(mCircleColor);
         mPanit.setStrokeWidth(8);
         canvas.drawCircle(mWidth/2,mHight/2,mRadius,mPanit);
-
     }
     private int measureSize(int mMeasureSpec) {
         int result;

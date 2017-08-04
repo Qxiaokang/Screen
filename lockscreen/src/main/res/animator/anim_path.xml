@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android">
     <objectAnimator
-        android:duration="10000"
+        android:duration="20000"
         android:propertyName="trimPathStart"
-        android:repeatCount="2"
-        android:repeatMode="reverse"
+        android:repeatCount="0"
+        android:repeatMode="restart"
         android:valueFrom="1"
         android:valueTo="0"
         android:valueType="floatType"
         />
     <!--trimPathStart -->
     <objectAnimator
-        android:duration="10000"
+        android:duration="20000"
         android:propertyName="strokeColor"
-        android:repeatCount="2"
-        android:repeatMode="reverse"
-        android:valueFrom="@color/colorgreen"
-        android:valueTo="@color/colorwhite"
+        android:repeatCount="0"
+        android:repeatMode="restart"
+        android:valueFrom="@color/colorWhite"
+        android:valueTo="@color/colorAccent"
         android:valueType="colorType"
         />
 

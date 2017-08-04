@@ -40,7 +40,7 @@ public class LockActivity extends AppCompatActivity{
     public static final int FLAG_HOMEKEY_DISPATCHED = 0x80000000; //需要自己定义标志
     private LottieAnimationView animationView;
     private int isFouseInt=0;
-    private AppCompatImageView appCompatImageView;
+    private AppCompatImageView appCompatImageView,aciv_top,aciv_bottom;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         LogUtils.d("---LockActivity创建");
@@ -56,7 +56,11 @@ public class LockActivity extends AppCompatActivity{
     }
     private void init(){
         appCompatImageView= (AppCompatImageView) findViewById(R.id.iv_grass);
+        aciv_top= (AppCompatImageView) findViewById(R.id.aciv_top);
+        aciv_bottom= (AppCompatImageView) findViewById(R.id.aciv_bottom);
         startVectorAnim(appCompatImageView);
+        startVectorAnim(aciv_top);
+        startVectorAnim(aciv_bottom);
         int si=systemUtil.getSp().getInt("isfirst",0);
         if(si==0){
             LogUtils.i("---si==0");
