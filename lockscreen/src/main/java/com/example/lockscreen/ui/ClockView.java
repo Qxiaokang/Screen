@@ -76,7 +76,7 @@ public class ClockView extends View{
         mHight=getMeasuredHeight()-getPaddingTop()-getPaddingBottom();
         LogUtils.d("mwidth:"+mWidth+"  mhight:"+mHight);
         //绘圆
-        drawCircle(canvas);
+        //drawCircle(canvas);
         //绘刻度
         drawScale(canvas);
         //绘指针

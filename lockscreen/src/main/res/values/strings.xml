@@ -2,5 +2,6 @@
     <string name="app_name"></string>
     <string name="hint_message1">请 输 入 密 码</string>
     <string name="description">description</string>
+    <string name="author">xk</string>
 
 </resources>

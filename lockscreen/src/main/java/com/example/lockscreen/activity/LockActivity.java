@@ -1,5 +1,6 @@
 package com.example.lockscreen.activity;
 
+import android.app.WallpaperManager;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,6 +30,7 @@ import com.example.lockscreen.ui.MainApplication;
 import com.example.lockscreen.utils.LogUtils;
 import com.example.lockscreen.utils.SystemUtil;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +54,16 @@ public class LockActivity extends AppCompatActivity{
         setContentView(R.layout.activity_lock);
         MainApplication.getInstance().addActivity(this);
         systemUtil=SystemUtil.getInstance(getApplicationContext());
+        WallpaperManager wallpaperManager=WallpaperManager.getInstance(this);
         init();
+        try{
+            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
+            ImageView imageView=new ImageView(this);
+//            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
+        }catch(IOException e){
+            LogUtils.e("exception:"+e.toString());
+            //e.printStackTrace();
+        }
     }
     private void init(){
         appCompatImageView= (AppCompatImageView) findViewById(R.id.iv_grass);
