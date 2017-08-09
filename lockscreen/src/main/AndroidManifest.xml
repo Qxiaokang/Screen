@@ -101,7 +101,7 @@
 
         <!-- 配置实时壁纸Service -->
         <service android:label="@string/app_name"
-            android:name=".service.NeheLesson02WallpaperService"
+            android:name=".service.LiveWallpaper"
             android:permission="android.permission.BIND_WALLPAPER">
             <!-- 为实时壁纸配置intent-filter -->
             <intent-filter>

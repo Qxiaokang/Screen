@@ -1,12 +1,16 @@
 package com.example.lockscreen.service;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.service.wallpaper.WallpaperService;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
+import com.example.lockscreen.R;
 import com.example.lockscreen.activity.HomeApplicaiton;
 import com.example.lockscreen.utils.LogUtils;
 
@@ -34,7 +38,7 @@ public class LiveWallpaper extends WallpaperService
         //左上角坐标
         private float cx1 = 15;
         private float cy1 = 20;
-
+        private boolean isFirst=true;
         //右下角坐标
         private float cx2 = HomeApplicaiton.screenW-80;
         private float cy2 = HomeApplicaiton.screenH-80;
@@ -46,7 +50,9 @@ public class LiveWallpaper extends WallpaperService
         //左下角坐标
         private float cx4 = 15;
         private float cy4 = HomeApplicaiton.screenH-80;
-
+        private Bitmap bitmap=null;
+        private float btX=0,btY=0;
+        private int count=0,counth=1;
         // 定义画笔
         private Paint mPaint = new Paint();
         // 定义一个Handler
@@ -69,7 +75,7 @@ public class LiveWallpaper extends WallpaperService
             mPaint.setColor(0xffffffff);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(2);
-            mPaint.setStrokeCap(Paint.Cap.ROUND);
+            //mPaint.setStrokeCap(Paint.Cap.ROUND);
             mPaint.setStyle(Paint.Style.STROKE);
             // 设置处理触摸事件
             setTouchEventsEnabled(true);
@@ -81,6 +87,12 @@ public class LiveWallpaper extends WallpaperService
             super.onDestroy();
             // 删除回调
             mHandler.removeCallbacks(drawTarget);
+            if(bitmap!=null){
+                bitmap.recycle();
+                bitmap=null;
+                System.gc();
+            }
+            LogUtils.i("onDestroy---");
         }
 
         @Override
@@ -97,13 +109,17 @@ public class LiveWallpaper extends WallpaperService
             {
                 // 如果界面不可见，删除回调
                 mHandler.removeCallbacks(drawTarget);
+                count=0;
+                counth=1;
             }
+            LogUtils.i("onVisibilityChanged---");
         }
 
         public void onOffsetsChanged(float xOffset, float yOffset, float xStep,
                                      float yStep, int xPixels, int yPixels)
         {
-            drawFrame();
+            LogUtils.i("onOffsetChanged---");
+            //drawFrame();
         }
 
 
@@ -137,15 +153,42 @@ public class LiveWallpaper extends WallpaperService
                 {
                     c.save();
                     // 绘制背景色
-                    c.drawColor(0xff000000);
-                    // 在触碰点绘制圆圈
-                    drawTouchPoint(c);
-
-                    // 绘制圆圈
-                    c.drawCircle(cx1, cy1, 80, mPaint);
-                    c.drawCircle(cx2, cy2, 40, mPaint);
-                    c.drawCircle(cx3, cy3, 50, mPaint);
-                    c.drawCircle(cx4, cy4, 60, mPaint);
+                    //c.drawColor(Color.BLACK);
+                    if(bitmap!=null){
+                        bitmap.recycle();
+                        bitmap=null;
+                    }
+                    bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.timg1);
+                    Rect  rect1=new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+                    Rect  rect2=new Rect(0,0,HomeApplicaiton.screenW,HomeApplicaiton.screenH);
+                    c.drawBitmap(bitmap,rect1,rect2,mPaint);
+//                    // 在触碰点绘制圆圈
+//                    drawTouchPoint(c);
+//
+//                    // 绘制圆圈
+//                    c.drawCircle(cx1, cy1, 80, mPaint);
+//                    c.drawCircle(cx2, cy2, 40, mPaint);
+//                    c.drawCircle(cx3, cy3, 50, mPaint);
+//                    c.drawCircle(cx4, cy4, 60, mPaint);
+//                    c.restore();
+                    if(bitmap!=null){
+                        bitmap.recycle();
+                        bitmap=null;
+                    }
+                    if(isFirst){
+                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.run1);
+                    }else {
+                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.run2);
+                    }
+                    btX+=count;
+                    if(btY<0){
+                        counth=1;
+                    }
+                    btY=HomeApplicaiton.screenH-bitmap.getHeight()*counth;
+                    c.drawBitmap(bitmap,btX-bitmap.getWidth()
+                            ,
+                            btY,mPaint);
+                    isFirst=!isFirst;
                     c.restore();
                 }
             }
@@ -158,7 +201,13 @@ public class LiveWallpaper extends WallpaperService
             // 调度下一次重绘
             if (mVisible)
             {
-                cx1 += 6;
+                if(btX>=HomeApplicaiton.screenW+bitmap.getWidth()){
+                    btX=0;
+                    count=0;
+                    counth++;
+                }
+
+               /* cx1 += 6;
                 cy1 += 8;
                 // 如果cx1、cy1移出屏幕后从左上角重新开始
                 if (cx1 > HomeApplicaiton.screenW-80)
@@ -192,10 +241,11 @@ public class LiveWallpaper extends WallpaperService
                     cx4 = 15;
                 if (cy4 <0)
 
-                    cy4 = HomeApplicaiton.screenH-80;
-
+                    cy4 = HomeApplicaiton.screenH-80;*/
+                count++;
                 // 指定0.1秒后重新执行mDrawCube一次
-                mHandler.postDelayed(drawTarget, 100);
+                mHandler.postDelayed(drawTarget, 200);
+
             }
         }
 

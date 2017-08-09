@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -57,8 +58,7 @@ public class LockActivity extends AppCompatActivity{
         WallpaperManager wallpaperManager=WallpaperManager.getInstance(this);
         init();
         try{
-            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
-            ImageView imageView=new ImageView(this);
+            wallpaperManager.setBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.timg1));
 //            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
         }catch(IOException e){
             LogUtils.e("exception:"+e.toString());
