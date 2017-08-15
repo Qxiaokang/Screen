@@ -58,7 +58,7 @@ public class LockActivity extends AppCompatActivity{
         WallpaperManager wallpaperManager=WallpaperManager.getInstance(this);
         init();
         try{
-            wallpaperManager.setBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.timg1));
+            wallpaperManager.setBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.timg1));
 //            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
         }catch(IOException e){
             LogUtils.e("exception:"+e.toString());

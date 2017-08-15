@@ -3,6 +3,7 @@ package com.example.lockscreen.service;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -72,7 +73,8 @@ public class LiveWallpaper extends WallpaperService
         {
             super.onCreate(surfaceHolder);
             // 初始化画笔
-            mPaint.setColor(0xffffffff);
+            //mPaint.setColor(0xffffffff);
+            mPaint.setColor(Color.RED);
             mPaint.setAntiAlias(true);
             mPaint.setStrokeWidth(2);
             //mPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -118,7 +120,7 @@ public class LiveWallpaper extends WallpaperService
         public void onOffsetsChanged(float xOffset, float yOffset, float xStep,
                                      float yStep, int xPixels, int yPixels)
         {
-            LogUtils.i("onOffsetChanged---");
+            //LogUtils.i("onOffsetChanged---");
             //drawFrame();
         }
 
@@ -130,11 +132,12 @@ public class LiveWallpaper extends WallpaperService
             {
                 mTouchX = event.getX();
                 mTouchY = event.getY();
+                LogUtils.i("---move---x:"+mTouchX+"---y:"+mTouchY);
             }
             else
             {
-                mTouchX = -1;
-                mTouchY = -1;
+                mTouchX = -100;
+                mTouchY = -100;
             }
             super.onTouchEvent(event);
         }
@@ -158,10 +161,11 @@ public class LiveWallpaper extends WallpaperService
                         bitmap.recycle();
                         bitmap=null;
                     }
-                    bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.timg1);
-                    Rect  rect1=new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
+                    bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.system_bg1);
+                    Rect rect1=new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
                     Rect  rect2=new Rect(0,0,HomeApplicaiton.screenW,HomeApplicaiton.screenH);
                     c.drawBitmap(bitmap,rect1,rect2,mPaint);
+
 //                    // 在触碰点绘制圆圈
 //                    drawTouchPoint(c);
 //
@@ -189,6 +193,9 @@ public class LiveWallpaper extends WallpaperService
                             ,
                             btY,mPaint);
                     isFirst=!isFirst;
+                    if(mTouchY>0&&mTouchY>0){
+                        drawLove(c);
+                    }
                     c.restore();
                 }
             }
@@ -256,6 +263,62 @@ public class LiveWallpaper extends WallpaperService
             {
                 c.drawCircle(mTouchX, mTouchY, 40, mPaint);
             }
+        }
+
+        private void drawLove(Canvas canvas) {
+            //(17*(x^2))-(16*abs(x)*y)+(17*(y^2))<255 x(-5,5) y(-5,5) (心形函数方程式)
+            int loveWidth = 100;//心型宽度，必须是偶数
+            int oneLine = loveWidth/2;//一条轴长度
+
+            float scale = oneLine/5f;//实际坐标比上方程式坐标，倍数
+
+            for (int i = 0; i < oneLine; i++) {
+                for (int j = 0; j < oneLine; j++) {
+
+                    //根据表达式xy的范围，所以要把坐标系的范围也缩小
+                    float xf = i/scale;
+                    float yf = j/scale;
+
+                    if((17*Math.pow(xf, 2) - 16*Math.abs(xf)*yf+17*Math.pow(yf, 2))<255){
+
+                        //右上1
+                        //                  canvas.drawPoint(xf*scale+250,250+yf*scale, paint);
+                        //左下2
+                        canvas.drawPoint(mTouchX-xf*scale,mTouchY-yf*scale, mPaint);
+                        //                  this.postInvalidateDelayed(10);
+
+
+                        //右上1
+                        //                  canvas.drawPoint(-xf*scale+250,250+yf*scale, paint);
+                        //右下2
+                        canvas.drawPoint(mTouchX+xf*scale,mTouchY-yf*scale, mPaint);
+                        //                  this.postInvalidateDelayed(10);
+
+                        //                  Log.i("TAG", "xf-->"+(xf*scale+250)+"yf-->"+(250-yf*scale));
+                    }
+
+                    if((17*Math.pow(xf, 2) - 16*Math.abs(xf)*(-yf)+17*Math.pow(yf, 2))<255){
+
+                        //左上2
+                        canvas.drawPoint(mTouchX-xf*scale, mTouchY+yf*scale, mPaint);
+                        //右下 1
+                        //                  canvas.drawPoint(250+xf*scale,250-yf*scale, paint);
+
+                        //                  this.postInvalidateDelayed(10);
+
+
+
+                        //左上2
+                        canvas.drawPoint(mTouchX+xf*scale, mTouchY+yf*scale, mPaint);
+                        //右下 1
+                        //                  canvas.drawPoint(250-xf*scale,250-yf*scale, paint);
+
+                        //                  this.postInvalidateDelayed(10);
+
+                    }
+                }
+            }//end for
+
         }
     }
 }
