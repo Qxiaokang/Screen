@@ -161,7 +161,7 @@ public class LiveWallpaper extends WallpaperService
                         bitmap.recycle();
                         bitmap=null;
                     }
-                    bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.system_bg1);
+                    bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.love_is_sipple);
                     Rect rect1=new Rect(0,0,bitmap.getWidth(),bitmap.getHeight());
                     Rect  rect2=new Rect(0,0,HomeApplicaiton.screenW,HomeApplicaiton.screenH);
                     c.drawBitmap(bitmap,rect1,rect2,mPaint);
@@ -180,9 +180,9 @@ public class LiveWallpaper extends WallpaperService
                         bitmap=null;
                     }
                     if(isFirst){
-                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.run1);
+                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.progress_loading_image_01);
                     }else {
-                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.run2);
+                        bitmap=BitmapFactory.decodeResource(getResources(),R.mipmap.progress_loading_image_02);
                     }
                     btX+=count;
                     if(btY<0){
@@ -251,7 +251,7 @@ public class LiveWallpaper extends WallpaperService
                     cy4 = HomeApplicaiton.screenH-80;*/
                 count++;
                 // 指定0.1秒后重新执行mDrawCube一次
-                mHandler.postDelayed(drawTarget, 200);
+                mHandler.postDelayed(drawTarget, 300);
 
             }
         }

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <wallpaper xmlns:android="http://schemas.android.com/apk/res/android"
-    android:settingsActivity="android.intent.category.HOME"
+    android:settingsActivity="com.example.lockscreen.activity.FistActivity"
     android:author="@string/author"
     android:description="@string/description"
-    android:thumbnail="@drawable/timg1"
-    android:name="lan"
+    android:thumbnail="@drawable/progress_loading_image_01"
     >
 </wallpaper>

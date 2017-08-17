@@ -5,4 +5,7 @@
     <dimen name="text_size20">20dp</dimen>
     <dimen name="text_size18">18dp</dimen>
     <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_15">15dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
 </resources>

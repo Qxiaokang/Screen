@@ -3,8 +3,8 @@
     <objectAnimator
         android:duration="10000"
         android:propertyName="trimPathStart"
-        android:repeatCount="0"
-        android:repeatMode="restart"
+        android:repeatCount="2"
+        android:repeatMode="reverse"
         android:valueFrom="1"
         android:valueTo="0"
         android:valueType="floatType"
@@ -13,9 +13,9 @@
     <objectAnimator
         android:duration="10000"
         android:propertyName="strokeColor"
-        android:repeatCount="0"
-        android:repeatMode="restart"
-        android:valueFrom="@color/colorWhite"
+        android:repeatCount="2"
+        android:repeatMode="reverse"
+        android:valueFrom="@color/colorYellow"
         android:valueTo="@color/colorAccent"
         android:valueType="colorType"
         />

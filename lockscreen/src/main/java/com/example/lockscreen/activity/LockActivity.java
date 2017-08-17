@@ -55,15 +55,9 @@ public class LockActivity extends AppCompatActivity{
         setContentView(R.layout.activity_lock);
         MainApplication.getInstance().addActivity(this);
         systemUtil=SystemUtil.getInstance(getApplicationContext());
-        WallpaperManager wallpaperManager=WallpaperManager.getInstance(this);
+
         init();
-        try{
-            wallpaperManager.setBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.timg1));
-//            wallpaperManager.setResource(R.drawable.anim_dialog_loading);
-        }catch(IOException e){
-            LogUtils.e("exception:"+e.toString());
-            //e.printStackTrace();
-        }
+
     }
     private void init(){
         appCompatImageView= (AppCompatImageView) findViewById(R.id.iv_grass);
@@ -78,6 +72,17 @@ public class LockActivity extends AppCompatActivity{
             Intent intent=new Intent(this, LockService.class);
             startService(intent);
             startService(new Intent(this, BindService.class));
+        }
+        int wallpaperTime=systemUtil.getSp().getInt("LiveWallpaper",1);
+        if(wallpaperTime==1){
+            try{
+                WallpaperManager wallpaperManager=WallpaperManager.getInstance(this);
+                wallpaperManager.setBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.timg1));
+                // wallpaperManager.setResource(R.drawable.anim_dialog_loading);
+            }catch(IOException e){
+                LogUtils.e("exception:"+e.toString());
+                //e.printStackTrace();
+            }
         }
         animationView= (LottieAnimationView) findViewById(R.id.ani_lock);
         animationView.setImageAssetsFolder("Images");
@@ -122,6 +127,7 @@ public class LockActivity extends AppCompatActivity{
             animationView.cancelAnimation();
         }
         systemUtil.setIsLock(false);
+        //startSettingBg();
         super.onDestroy();
     }
 
@@ -203,6 +209,8 @@ public class LockActivity extends AppCompatActivity{
         intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, mDeviceAdminSample);
         intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "Activate");
         startActivity(intent);
+
+
     }
 
     private void startVectorAnim(AppCompatImageView aiv){
@@ -212,6 +220,15 @@ public class LockActivity extends AppCompatActivity{
         if(drawable instanceof Animatable){
             ((Animatable) drawable).start();
         }
+    }
+
+    private  void startSettingBg(){
+        Intent chooseIntent=new Intent(Intent.ACTION_SET_WALLPAPER);
+        //启用系统选择应用   android.service.wallpaper.LIVE_WALLPAPER_CHOOSER
+        Intent intent=new Intent(Intent.ACTION_CHOOSER);
+        intent.putExtra(Intent.EXTRA_INTENT,chooseIntent);
+        intent.putExtra(Intent.EXTRA_TITLE,"选择壁纸");
+        startActivity(intent);
     }
 }
 

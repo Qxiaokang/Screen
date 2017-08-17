@@ -83,7 +83,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            android:theme="@style/TranslucentTheme"
+            >
+            <intent-filter>
+                <action android:name="com.example.lockscreen.activity.FistActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
         <receiver android:name=".broadcast.MydeviceReceiver"
             android:description="@string/description"
